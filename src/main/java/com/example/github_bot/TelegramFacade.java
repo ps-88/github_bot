@@ -1,6 +1,7 @@
 package com.example.github_bot;
 
 import com.example.github_bot.cache.UserDataCache;
+import com.example.github_bot.handlers.CallbackQueryFacade;
 import com.example.github_bot.service.MainMenuService;
 import com.example.github_bot.state.BotState;
 import com.example.github_bot.state.BotStateContext;
@@ -20,6 +21,7 @@ public class TelegramFacade {
     private BotStateContext botStateContext;
     private UserDataCache userDataCache;
     private MainMenuService mainMenuService;
+    private CallbackQueryFacade callbackQueryFacade;
 
     public TelegramFacade(BotStateContext botStateContext, UserDataCache userDataCache,MainMenuService mainMenuService) {
         this.botStateContext = botStateContext;
@@ -35,7 +37,7 @@ public class TelegramFacade {
             log.info("New callbackQuery from User: {}, userId: {}, with data: {}", update.getCallbackQuery().getFrom().getUserName(),
                     callbackQuery.getFrom().getId(), update.getCallbackQuery().getData());
 
-            return processCallbackQuery(callbackQuery);
+           return processCallbackQuery(callbackQuery);
         }
 
 
@@ -45,6 +47,8 @@ public class TelegramFacade {
                     message.getFrom().getUserName(), message.getChatId(), message.getText());
             replyMessage = handleInputMessage(message);
         }
+
+
 
         return replyMessage;
     }
@@ -58,9 +62,7 @@ public class TelegramFacade {
 
 
         switch (inputMsg) {
-            case "/start":
-                botState = BotState.SHOW_MAIN_MENU;
-                break;
+
             case "Search User":
                 botState = BotState.SEARCH_USER;
                 break;
@@ -71,6 +73,7 @@ public class TelegramFacade {
                 botState = userDataCache.getUsersCurrentBotState(userId);
                 break;
         }
+
 
         userDataCache.setUsersCurrentBotState(userId, botState);
         replyMessage = botStateContext.processInputMessage(botState, message);

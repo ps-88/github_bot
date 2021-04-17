@@ -29,6 +29,8 @@ public class BotStateContext {
 
         switch (currentState) {
             case SEARCH_USER:
+            case QUERY_FOR_SEARCH:
+            case ASK_USERNAME_FOR_SEARCH:
                 return messageHandlers.get(BotState.SEARCH_USER);
             case SHOW_HELP_MENU:
                 return messageHandlers.get(BotState.SHOW_HELP_MENU);
