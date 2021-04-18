@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -33,8 +34,6 @@ public class SearchUserService {
     private final GithubTelegramBot telegramBot;
 
 
-    private static final String URI_PARAM_SEARCH_USER_QUERY = "SEARCH_USER_QUERY";
-
     public SearchUserService(RestTemplate restTemplate, @Lazy GithubTelegramBot telegramBot, ReplyMessagesService messagesService) {
         this.restTemplate = restTemplate;
         this.telegramBot = telegramBot;
@@ -47,9 +46,9 @@ public class SearchUserService {
         List<GithubUser> githubUserList = null;
 
 
-        URL url = new URL("https://api.github.com/search/users?q=" + usersAnswer);
+        URL url = new URL(searchUserRequest + URLEncoder.encode(usersAnswer, "UTF-8"));
         ObjectMapper objectMapper = new ObjectMapper();
-        Map map = objectMapper.readValue(url, Map.class);
+       // Map map = objectMapper.readValue(url, Map.class);
 
 
 
