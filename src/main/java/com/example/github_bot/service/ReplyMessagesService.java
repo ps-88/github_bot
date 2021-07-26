@@ -15,19 +15,20 @@ public class ReplyMessagesService {
 
     public SendMessage getReplyMessage(long chatId, String replyMessage) {
 
-        return new SendMessage(chatId,   messageSource.getMessage(replyMessage,null,null));
+        return new SendMessage(chatId, messageSource.getMessage(replyMessage, null, null));
     }
 
     public SendMessage getReplyMessage(long chatId, String replyMessage, Object... args) {
-        return new SendMessage(chatId,  messageSource.getMessage(replyMessage,args,null));
+        return new SendMessage(chatId, messageSource.getMessage(replyMessage, args, null));
     }
-     public String getReplyText(String replyText, Object... args) {
-         return messageSource.getMessage(replyText, args,null);
-     }
+
+    public String getReplyText(String replyText, Object... args) {
+        return messageSource.getMessage(replyText, args, null);
+    }
 
     public String getReplyText(String replyText) {
-        return   messageSource.getMessage(replyText,null,null);
+        return messageSource.getMessage(replyText, null, null);
     }
 
 
- }
+}

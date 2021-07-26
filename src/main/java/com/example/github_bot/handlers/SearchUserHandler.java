@@ -14,7 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import java.util.List;
 
 @Service
-public class SearchUserHandler implements InputMessageHandler{
+public class SearchUserHandler implements InputMessageHandler {
 
     private UserDataCache userDataCache;
     private SearchUserService searchUserService;
@@ -31,9 +31,9 @@ public class SearchUserHandler implements InputMessageHandler{
 
     @Override
     public SendMessage handle(Message message) {
-      if (userDataCache.getUsersCurrentBotState(message.getFrom().getId()).equals(BotState.SEARCH_USER)) {
-         userDataCache.setUsersCurrentBotState(message.getFrom().getId(), BotState.ASK_USERNAME_FOR_SEARCH);
-      }
+        if (userDataCache.getUsersCurrentBotState(message.getFrom().getId()).equals(BotState.SEARCH_USER)) {
+            userDataCache.setUsersCurrentBotState(message.getFrom().getId(), BotState.ASK_USERNAME_FOR_SEARCH);
+        }
         return processUsersInput(message);
     }
 
@@ -52,29 +52,28 @@ public class SearchUserHandler implements InputMessageHandler{
         BotState botState = userDataCache.getUsersCurrentBotState(userId);
 
 
-
         if (botState.equals(BotState.ASK_USERNAME_FOR_SEARCH)) {
             replyToUser = messagesService.getReplyMessage(chatId, "reply.searchUser.enterUserName");
 
-               userDataCache.setUsersCurrentBotState(userId, BotState.QUERY_FOR_SEARCH);
+            userDataCache.setUsersCurrentBotState(userId, BotState.QUERY_FOR_SEARCH);
         }
 
 
         if (botState.equals(BotState.QUERY_FOR_SEARCH)) {
 
-        List<GithubUser> userList = searchUserService.getGithubUserList(chatId, usersAnswer);
-        if (userList.isEmpty()) {
-            return messagesService.getReplyMessage(chatId, "reply.searchUser.usersNotFound");
+            List<GithubUser> userList = searchUserService.getGithubUserList(chatId, usersAnswer);
+            if (userList.isEmpty()) {
+                return messagesService.getReplyMessage(chatId, "reply.searchUser.usersNotFound");
+            }
+
+
+            sendUsersInfoService.sendUsersInfo(chatId, userList);
+
+            userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_MAIN_MENU);
+
+            replyToUser = messagesService.getReplyMessage(chatId, "reply.userSearch.finishedOK");
+
         }
-
-
-        sendUsersInfoService.sendUsersInfo(chatId, userList);
-
-        userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_MAIN_MENU);
-
-        replyToUser = messagesService.getReplyMessage(chatId, "reply.userSearch.finishedOK");
-
-    }
 
         return replyToUser;
     }

@@ -48,8 +48,7 @@ public class SearchUserService {
 
         URL url = new URL(searchUserRequest + URLEncoder.encode(usersAnswer, "UTF-8"));
         ObjectMapper objectMapper = new ObjectMapper();
-       // Map map = objectMapper.readValue(url, Map.class);
-
+        // Map map = objectMapper.readValue(url, Map.class);
 
 
 //        ResponseEntity<String> gitHubResp

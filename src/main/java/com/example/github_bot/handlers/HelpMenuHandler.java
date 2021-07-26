@@ -8,7 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 @Component
-public class HelpMenuHandler implements InputMessageHandler{
+public class HelpMenuHandler implements InputMessageHandler {
 
     private MainMenuService mainMenuService;
     private ReplyMessagesService messagesService;
@@ -22,11 +22,13 @@ public class HelpMenuHandler implements InputMessageHandler{
     public SendMessage handle(Message message) {
         return mainMenuService.getMainMenuMessage(message.getChatId(),
                 messagesService.getReplyText("reply.helpMenu.welcomeMessage"));
-    };
+    }
+
+    ;
 
 
     @Override
     public BotState getHandlerName() {
-        return  BotState.SHOW_HELP_MENU;
+        return BotState.SHOW_HELP_MENU;
     }
 }

@@ -20,5 +20,4 @@ public class GithubUser {
     private String link;
 
 
-
 }

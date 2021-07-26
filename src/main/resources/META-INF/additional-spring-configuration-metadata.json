@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "searchUserService.searchUserRequest",
+      "type": "java.lang.String",
+      "description": "Description for searchUserService.searchUserRequest."
+    }
+  ]
+}

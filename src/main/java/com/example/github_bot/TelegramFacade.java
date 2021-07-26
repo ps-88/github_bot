@@ -23,7 +23,7 @@ public class TelegramFacade {
     private MainMenuService mainMenuService;
     private CallbackQueryFacade callbackQueryFacade;
 
-    public TelegramFacade(BotStateContext botStateContext, UserDataCache userDataCache,MainMenuService mainMenuService) {
+    public TelegramFacade(BotStateContext botStateContext, UserDataCache userDataCache, MainMenuService mainMenuService) {
         this.botStateContext = botStateContext;
         this.userDataCache = userDataCache;
         this.mainMenuService = mainMenuService;
@@ -37,7 +37,7 @@ public class TelegramFacade {
             log.info("New callbackQuery from User: {}, userId: {}, with data: {}", update.getCallbackQuery().getFrom().getUserName(),
                     callbackQuery.getFrom().getId(), update.getCallbackQuery().getData());
 
-           return processCallbackQuery(callbackQuery);
+            return processCallbackQuery(callbackQuery);
         }
 
 
@@ -49,7 +49,6 @@ public class TelegramFacade {
         }
 
 
-
         return replyMessage;
     }
 
@@ -58,7 +57,6 @@ public class TelegramFacade {
         int userId = message.getFrom().getId();
         BotState botState;
         SendMessage replyMessage;
-
 
 
         switch (inputMsg) {
@@ -88,13 +86,13 @@ public class TelegramFacade {
         BotApiMethod<?> callBackAnswer = mainMenuService.getMainMenuMessage(chatId, "Воспользуйтесь главным меню");
 
         if (buttonQuery.getData().equals("Search User")) {
-          //  callBackAnswer = new SendMessage(chatId, "Please send name of user: ");
+            //  callBackAnswer = new SendMessage(chatId, "Please send name of user: ");
             callBackAnswer = sendAnswerCallbackQuery("Возвращайся, когда будешь готов", false, buttonQuery);
             userDataCache.setUsersCurrentBotState(userId, BotState.SEARCH_USER);
         }
 
 
-            userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_MAIN_MENU);
+        userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_MAIN_MENU);
 
 
         return callBackAnswer;

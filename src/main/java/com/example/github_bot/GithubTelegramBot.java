@@ -13,9 +13,9 @@ public class GithubTelegramBot extends TelegramWebhookBot {
 
     private TelegramFacade telegramFacade;
 
-    public GithubTelegramBot(  TelegramFacade telegramFacade) {
+    public GithubTelegramBot(TelegramFacade telegramFacade) {
 
-        this.telegramFacade  = telegramFacade;
+        this.telegramFacade = telegramFacade;
 
     }
 
@@ -37,7 +37,6 @@ public class GithubTelegramBot extends TelegramWebhookBot {
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
         BotApiMethod<?> replyMessageToUser = telegramFacade.handleUpdate(update);
-
 
 
         return replyMessageToUser;

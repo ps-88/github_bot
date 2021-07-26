@@ -17,7 +17,7 @@ public class SendUsersInfoService {
     private UserDataCache userDataCache;
     private GithubTelegramBot telegramBot;
 
-    public SendUsersInfoService(ReplyMessagesService messagesService, UserDataCache userDataCache,@Lazy GithubTelegramBot telegramBot) {
+    public SendUsersInfoService(ReplyMessagesService messagesService, UserDataCache userDataCache, @Lazy GithubTelegramBot telegramBot) {
         this.messagesService = messagesService;
         this.userDataCache = userDataCache;
         this.telegramBot = telegramBot;
@@ -26,16 +26,15 @@ public class SendUsersInfoService {
     public void sendUsersInfo(long chatId, List<GithubUser> userList) {
 
         StringBuilder usersInfo = new StringBuilder();
-        usersInfo.append("Result of searching:" +"\n" );
+        usersInfo.append("Result of searching:" + "\n");
         for (GithubUser githubUser : userList) {
 
             usersInfo.append(messagesService.getReplyText("reply.userSearch.usersInfo",
-                    githubUser.getName(),githubUser.getLink()));
+                    githubUser.getName(), githubUser.getLink()));
 
 
-
-        String listUsers =   messagesService.getReplyText("reply.userSearch.usersInfo",
-                    githubUser.getName(),githubUser.getLink());
+            String listUsers = messagesService.getReplyText("reply.userSearch.usersInfo",
+                    githubUser.getName(), githubUser.getLink());
 //
 //       SendMessage message =  new SendMessage(chatId, String.format("%s%n -------------------%n"
 //                ,  githubUser.getName(),githubUser.getLink()  ));
@@ -43,7 +42,7 @@ public class SendUsersInfoService {
 
         }
         String str = usersInfo.toString();
-        telegramBot.sendMessage(chatId,str);
+        telegramBot.sendMessage(chatId, str);
 
     }
 }

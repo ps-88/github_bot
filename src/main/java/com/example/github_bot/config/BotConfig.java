@@ -29,12 +29,9 @@ public class BotConfig {
 
 
     @Bean
-    public GithubTelegramBot githubTelegramBot (TelegramFacade telegramFacade) {
+    public GithubTelegramBot githubTelegramBot(TelegramFacade telegramFacade) {
 
-
-
-
-        GithubTelegramBot githubTelegramBot = new GithubTelegramBot(telegramFacade );
+        GithubTelegramBot githubTelegramBot = new GithubTelegramBot(telegramFacade);
         githubTelegramBot.setBotUserName(botUserName);
         githubTelegramBot.setBotToken(botToken);
         githubTelegramBot.setWebHookPath(webHookPath);
