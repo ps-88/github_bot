@@ -6,5 +6,6 @@ public enum BotState {
     ASK_USERNAME_FOR_SEARCH,
     SHOW_MAIN_MENU,
     SHOW_HELP_MENU,
-    NEW_CODE;
+    NEW_CODE,
+    STASH;
 }
